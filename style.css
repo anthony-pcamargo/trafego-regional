@@ -1,15 +1,12 @@
 /* --- VARIÁVEIS & RESET --- */
 :root {
     --primary-navy: #001970;
-    --primary-blue: #2563eb;
-    --accent-cyan: #06b6d4;
     --bg-body: #f8fafc;
 }
 
 body {
     font-family: 'Inter', sans-serif;
     background-color: var(--bg-body);
-    /* Renderização de fonte premium */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -17,197 +14,120 @@ body {
 /* --- HEADER --- */
 .header-premium {
     background-color: var(--primary-navy);
-    /* Gradiente sutil para dar vida ao azul escuro */
-    background-image: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+    /* Gradiente sutil para profundidade */
+    background-image: radial-gradient(circle at top right, rgba(255,255,255,0.1), transparent 40%);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
-/* --- SISTEMA DE ABAS (Tabs) --- */
-.tab-btn {
-    padding: 0.6rem 1.25rem;
-    border-radius: 99px; /* Pill shape total */
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #64748b;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    align-items: center;
-    border: 1px solid transparent;
-}
-
-.tab-btn:hover {
-    background-color: #f1f5f9;
-    color: #1e293b;
-    transform: translateY(-1px);
-}
-
-/* Estado Ativo Sofisticado */
-.tab-btn.active {
-    background-color: white;
-    color: #0f172a;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-    border-color: #e2e8f0;
-}
-
-/* Painel com animação suave */
-.tab-panel {
-    animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.tab-panel.hidden {
-    display: none;
-}
-
-@keyframes slideUpFade {
-    from { opacity: 0; transform: translateY(10px) scale(0.98); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-/* --- BOTÕES GERAIS --- */
-.btn-primary {
-    background-color: white;
-    color: #334155;
+/* --- NAV CARDS LUXUOSOS --- */
+.nav-card {
+    background: white;
     border: 1px solid #e2e8f0;
-    padding: 0.6rem 1.2rem;
-    border-radius: 0.5rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    transition: all 0.2s ease;
+    border-radius: 1.5rem; /* Mais arredondado */
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
 }
 
-.btn-primary:hover {
-    background-color: #f8fafc;
-    border-color: #cbd5e1;
-    color: #0f172a;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+.nav-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.08);
 }
 
-.btn-primary:active {
-    transform: translateY(0);
+/* Estado Ativo: Azul */
+.nav-card.active[data-color="blue"] {
+    border-color: #3b82f6;
+    background: linear-gradient(to bottom right, #ffffff, #eff6ff);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
 }
+.nav-card.active[data-color="blue"] .active-bar { width: 100%; box-shadow: 0 0 15px #3b82f6; }
+
+/* Estado Ativo: Verde */
+.nav-card.active[data-color="emerald"] {
+    border-color: #10b981;
+    background: linear-gradient(to bottom right, #ffffff, #ecfdf5);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+.nav-card.active[data-color="emerald"] .active-bar { width: 100%; box-shadow: 0 0 15px #10b981; }
+
+/* Estado Ativo: Roxo */
+.nav-card.active[data-color="purple"] {
+    border-color: #a855f7;
+    background: linear-gradient(to bottom right, #ffffff, #faf5ff);
+    box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.1);
+}
+.nav-card.active[data-color="purple"] .active-bar { width: 100%; box-shadow: 0 0 15px #a855f7; }
+
+
+/* --- PAINÉIS & ANIMAÇÕES --- */
+.tab-panel { animation: fadeInScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.tab-panel.hidden { display: none; }
+
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.98) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes blob {
+    0% { transform: translate(0px, 0px) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+    100% { transform: translate(0px, 0px) scale(1); }
+}
+.animate-blob { animation: blob 7s infinite; }
+.animation-delay-2000 { animation-delay: 2s; }
 
 /* --- CARDS DE MÉTRICAS (GRID INFERIOR) --- */
 .metric-card {
     background: white;
-    border-radius: 0.75rem; /* 12px */
-    padding: 1.25rem;
-    position: relative;
-    border: 1px solid #e2e8f0; 
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.02), 0 1px 2px -1px rgba(0, 0, 0, 0.02);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-}
-
-.metric-card:hover {
-    border-color: #cbd5e1;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
-}
-
-/* Acentuação Lateral */
-.metric-card::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 15%;
-    bottom: 15%;
-    width: 3px;
-    background-color: currentColor; /* Pega a cor do texto definida no JS */
-    border-radius: 0 4px 4px 0;
-    opacity: 0.8;
-}
-
-/* Ícone */
-.icon-box {
-    width: 38px;
-    height: 38px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-    transition: transform 0.3s ease;
-}
-
-.metric-card:hover .icon-box {
-    transform: scale(1.05);
-}
-
-/* Valores */
-.metric-value {
-    font-feature-settings: "tnum"; 
-    font-variant-numeric: tabular-nums;
-}
-
-/* Tooltip Ícone */
-.info-tooltip {
-    color: #cbd5e1;
-    cursor: help;
-    transition: color 0.2s;
-}
-.info-tooltip:hover {
-    color: #64748b;
-}
-
-/* --- CARDS DE GRÁFICOS --- */
-.chart-card {
-    background: white;
     border-radius: 1rem;
     padding: 1.5rem;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.01);
+    position: relative;
+    border: 1px solid #e2e8f0; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s ease;
+    display: flex; flex-direction: column; justify-content: space-between; height: 100%;
 }
+.metric-card:hover { border-color: #cbd5e1; transform: translateY(-3px); box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.05); }
+.metric-card::before { content: ''; position: absolute; left: 0; top: 20%; bottom: 20%; width: 4px; background-color: currentColor; border-radius: 0 4px 4px 0; opacity: 0.8; }
+.icon-box { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: transform 0.3s ease; }
+.metric-card:hover .icon-box { transform: scale(1.1) rotate(5deg); }
+.metric-value { font-feature-settings: "tnum"; font-variant-numeric: tabular-nums; }
 
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 1.5rem;
-    border-bottom: 1px solid #f1f5f9;
-    padding-bottom: 1rem;
-}
+/* --- GRÁFICOS --- */
+.chart-card { background: white; border-radius: 1.5rem; padding: 1.5rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.01); }
+.card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; border-bottom: 1px solid #f1f5f9; padding-bottom: 1rem; }
+.icon-indicator { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
 
-.icon-indicator {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+/* --- TREND BADGES --- */
+.trend-badge { font-size: 0.7rem; padding: 3px 8px; border-radius: 99px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; }
+.trend-good { background-color: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+.trend-bad { background-color: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
 
-/* Trend Badges */
-.trend-badge {
-    font-size: 0.65rem;
-    padding: 2px 6px;
-    border-radius: 999px;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 3px;
-    letter-spacing: 0.02em;
-}
-.trend-good { background-color: #dcfce7; color: #15803d; }
-.trend-bad { background-color: #fee2e2; color: #b91c1c; }
+/* --- GERAL --- */
+.fade-in { animation: fadeIn 0.8s ease-out forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-/* Animação */
-.fade-in { animation: fadeIn 0.6s ease-out forwards; }
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
+/* --- PRINT --- */
 @media print {
-    body { background: white; }
-    .header-premium { background: #001970 !important; -webkit-print-color-adjust: exact; }
-    .metric-card, .chart-card { break-inside: avoid; border: 1px solid #ccc; box-shadow: none; }
-    button, .tab-btn { display: none !important; }
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    .header-premium { position: static !important; background-color: #001970 !important; color: white !important; box-shadow: none !important; }
+    .header-premium h1, .header-premium p, .header-premium span { color: white !important; }
+    .fa-circle-question { display: none !important; }
+    
+    /* Garante cores de fundo na impressão */
+    .bg-gradient-to-br { background-image: none !important; }
+    #tab-leads .rounded-\[2rem\] { background-color: #2563eb !important; color: white !important; }
+    #tab-cpl .rounded-\[2rem\] { background-color: #059669 !important; color: white !important; }
+    #tab-media .rounded-\[2rem\] { background-color: #7c3aed !important; color: white !important; }
+    
+    body { background-color: white !important; margin: 0; }
+    .metric-card, .chart-card, .nav-card { break-inside: avoid !important; box-shadow: none !important; border: 1px solid #ccc !important; }
+    
+    /* Nav Cards na impressão */
+    .nav-card { border: none !important; border-bottom: 1px solid #ddd !important; padding-bottom: 10px; margin-bottom: 10px; border-radius: 0 !important; }
+    .active-bar, .animate-blob { display: none !important; } 
 }
