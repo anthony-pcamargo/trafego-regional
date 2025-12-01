@@ -1,4 +1,4 @@
-// --- DADOS DO RELATÓRIO (EDITE AQUI) ---
+// --- DADOS DO RELATÓRIO ---
 const reportData = {
     interno: {
         leads: 1450,
@@ -20,55 +20,61 @@ const reportData = {
     }
 };
 
-// Configurações Gerais
+// Configurações
 document.getElementById('data-atualizacao').innerText = new Date().toLocaleDateString('pt-BR');
 const formatCurrency = (val) => val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-// --- LÓGICA DAS ABAS E CÁLCULOS HERO ---
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Cálculos dos Totais das Abas Hero
-    
-    // Aba Leads Hoje (Soma)
+    // --- 1. CÁLCULOS TOTAIS ---
     const totalLeadsHoje = reportData.interno.leadsHoje + reportData.externo.leadsHoje;
+    const mediaCplTotal = (reportData.interno.cpl30 + reportData.externo.cpl30) / 2;
+    const totalMedia7d = reportData.interno.mediaLeads7 + reportData.externo.mediaLeads7;
+
+    // --- 2. POPULAR NAV CARDS ---
+    animateValue(document.getElementById('nav-leads-val'), 0, totalLeadsHoje, 1000, false);
+    animateValue(document.getElementById('nav-cpl-val'), 0, mediaCplTotal, 1000, true);
+    animateValue(document.getElementById('nav-media-val'), 0, totalMedia7d, 1000, false);
+
+    // --- 3. POPULAR HERO CARDS ---
+    // Aba Leads
     document.getElementById('tab-total-leads').innerText = totalLeadsHoje;
     document.getElementById('tab-leads-interno').innerText = reportData.interno.leadsHoje;
     document.getElementById('tab-leads-externo').innerText = reportData.externo.leadsHoje;
 
-    // Aba CPL (Média)
-    const mediaCplTotal = (reportData.interno.cpl30 + reportData.externo.cpl30) / 2;
+    // Aba CPL
     document.getElementById('tab-total-cpl').innerText = formatCurrency(mediaCplTotal);
     document.getElementById('tab-cpl-interno').innerText = formatCurrency(reportData.interno.cpl30);
     document.getElementById('tab-cpl-externo').innerText = formatCurrency(reportData.externo.cpl30);
 
-    // Aba Média 7 Dias (Soma)
-    const totalMedia7d = reportData.interno.mediaLeads7 + reportData.externo.mediaLeads7;
+    // Aba Média
     document.getElementById('tab-total-media').innerText = Math.round(totalMedia7d); 
     document.getElementById('tab-media-interno').innerText = reportData.interno.mediaLeads7;
     document.getElementById('tab-media-externo').innerText = reportData.externo.mediaLeads7;
 
-    // 2. Comportamento de Clique nas Abas
-    const tabs = document.querySelectorAll('.tab-btn');
+    // --- 4. LÓGICA DE CLIQUE NAS ABAS ---
+    const navCards = document.querySelectorAll('.nav-card');
     const panels = document.querySelectorAll('.tab-panel');
 
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            tabs.forEach(t => t.classList.remove('active'));
+    navCards.forEach(card => {
+        card.addEventListener('click', () => {
+            navCards.forEach(c => c.classList.remove('active'));
             panels.forEach(p => p.classList.add('hidden'));
 
-            tab.classList.add('active');
-            const targetId = tab.getAttribute('data-target');
+            card.classList.add('active');
+            const targetId = card.getAttribute('data-target');
             document.getElementById(targetId).classList.remove('hidden');
         });
     });
 });
 
-// --- ANIMAÇÃO DE NÚMEROS (GRID INFERIOR) ---
+// --- ANIMAÇÃO DE NÚMEROS ---
 function animateValue(obj, start, end, duration, isCurrency) {
+    if(!obj) return;
     let startTimestamp = null;
     const step = (timestamp) => {
         if (!startTimestamp) startTimestamp = timestamp;
         const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        const ease = 1 - Math.pow(1 - progress, 3); // Cubic ease out
+        const ease = 1 - Math.pow(1 - progress, 3);
         let currentVal = start + (end - start) * ease;
         
         if (isCurrency) {
@@ -85,7 +91,7 @@ function animateValue(obj, start, end, duration, isCurrency) {
     window.requestAnimationFrame(step);
 }
 
-// Configuração dos Cards (Grid Detalhado)
+// Configuração dos Cards de Métricas Inferiores
 const cardConfig = {
     leads: { label: "Total Leads", help: "Volume acumulado", icon: "fa-users", type: "number", bg: "bg-blue-50", text: "text-blue-600" },
     cpl30: { label: "CPL (30 dias)", help: "Custo médio mensal", icon: "fa-sack-dollar", type: "money", bg: "bg-emerald-50", text: "text-emerald-600" },
@@ -96,7 +102,7 @@ const cardConfig = {
     leadsHoje: { label: "Leads Hoje", help: "Captação do dia", icon: "fa-calendar-day", type: "number", bg: "bg-rose-50", text: "text-rose-600" }
 };
 
-// Renderização dos Cards Detalhados
+// Renderização dos Cards Inferiores
 function renderCards(dataObj, containerId, accentColor) {
     const container = document.getElementById(containerId);
     
@@ -104,7 +110,6 @@ function renderCards(dataObj, containerId, accentColor) {
         const config = cardConfig[key];
         const value = dataObj[key];
         
-        // Tendência
         let trendHTML = '';
         if (key === 'mediaCpl7' || key === 'cpl30') {
             const diff = ((value - dataObj.cplIdeal) / dataObj.cplIdeal) * 100;
@@ -143,12 +148,11 @@ function renderCards(dataObj, containerId, accentColor) {
 renderCards(reportData.interno, 'grid-interno', '#2563eb'); 
 renderCards(reportData.externo, 'grid-externo', '#06b6d4'); 
 
-// Inicializa tooltips
 if(window.tippy) {
     tippy('[data-tippy-content]', { animation: 'scale', theme: 'light-border' });
 }
 
-// --- GRÁFICOS PREMIUM ---
+// --- GRÁFICOS ---
 Chart.defaults.font.family = "'Inter', sans-serif";
 Chart.defaults.color = '#64748b';
 Chart.defaults.scale.grid.color = 'transparent';
@@ -157,7 +161,6 @@ const ctxLeads = document.getElementById('chartLeads').getContext('2d');
 const gradientBlue = ctxLeads.createLinearGradient(0, 0, 0, 300);
 gradientBlue.addColorStop(0, '#2563eb');
 gradientBlue.addColorStop(1, '#93c5fd');
-
 const gradientCyan = ctxLeads.createLinearGradient(0, 0, 0, 300);
 gradientCyan.addColorStop(0, '#06b6d4');
 gradientCyan.addColorStop(1, '#67e8f9');
@@ -171,12 +174,7 @@ new Chart(ctxLeads, {
             { label: 'Externo', data: [reportData.externo.leadsHoje, reportData.externo.mediaLeads7, reportData.externo.leads/10], backgroundColor: gradientCyan, borderRadius: 4, barPercentage: 0.6 }
         ]
     },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, padding: 20 } } },
-        scales: { y: { beginAtZero: true, grid: { drawBorder: false, color: '#f1f5f9' }, ticks: { padding: 10 } }, x: { grid: { display: false } } }
-    }
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, padding: 20 } } }, scales: { y: { beginAtZero: true, grid: { drawBorder: false, color: '#f1f5f9' }, ticks: { padding: 10 } }, x: { grid: { display: false } } } }
 });
 
 const ctxCPL = document.getElementById('chartCPL').getContext('2d');
@@ -189,11 +187,5 @@ new Chart(ctxCPL, {
             { label: 'Externo', data: [reportData.externo.cplIdeal, reportData.externo.mediaCpl7, reportData.externo.cpl30], borderColor: '#06b6d4', backgroundColor: 'rgba(6, 182, 212, 0.05)', borderWidth: 2, tension: 0.4, fill: true, pointBackgroundColor: '#06b6d4', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 5 }
         ]
     },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        interaction: { mode: 'index', intersect: false },
-        plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, padding: 20 } } },
-        scales: { y: { grid: { drawBorder: false, color: '#f1f5f9', borderDash: [5, 5] }, ticks: { padding: 10 } }, x: { grid: { display: false } } }
-    }
+    options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, padding: 20 } } }, scales: { y: { grid: { drawBorder: false, color: '#f1f5f9', borderDash: [5, 5] }, ticks: { padding: 10 } }, x: { grid: { display: false } } } }
 });
