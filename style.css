@@ -1,0 +1,172 @@
+/* --- VARIÁVEIS & RESET --- */
+:root {
+    --primary-navy: #001970;
+    --primary-blue: #2563eb;
+    --accent-cyan: #06b6d4;
+    --bg-body: #f8fafc;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-body);
+    /* Renderização de fonte premium */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- HEADER --- */
+.header-premium {
+    background-color: var(--primary-navy);
+    /* Gradiente sutil para dar vida ao azul escuro */
+    background-image: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+/* --- BOTÕES --- */
+.btn-primary {
+    background-color: white;
+    color: #334155;
+    border: 1px solid #e2e8f0;
+    padding: 0.6rem 1.2rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #f8fafc;
+    border-color: #cbd5e1;
+    color: #0f172a;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* --- CARDS DE MÉTRICAS (Estilo Clean) --- */
+.metric-card {
+    background: white;
+    border-radius: 0.75rem; /* 12px */
+    padding: 1.25rem;
+    position: relative;
+    border: 1px solid #e2e8f0; /* Borda sutil */
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.02), 0 1px 2px -1px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.metric-card:hover {
+    border-color: #cbd5e1;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+}
+
+/* Acentuação Lateral (Elegante) */
+.metric-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 15%;
+    bottom: 15%;
+    width: 3px;
+    background-color: currentColor; /* Pega a cor do texto definida no JS */
+    border-radius: 0 4px 4px 0;
+    opacity: 0.8;
+}
+
+/* Ícone */
+.icon-box {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.metric-card:hover .icon-box {
+    transform: scale(1.05);
+}
+
+/* Valores */
+.metric-value {
+    font-feature-settings: "tnum"; /* Números tabulares para melhor alinhamento */
+    font-variant-numeric: tabular-nums;
+}
+
+/* Tooltip Ícone */
+.info-tooltip {
+    color: #cbd5e1;
+    cursor: help;
+    transition: color 0.2s;
+}
+.info-tooltip:hover {
+    color: #64748b;
+}
+
+/* --- CARDS DE GRÁFICOS --- */
+.chart-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.01);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 1rem;
+}
+
+.icon-indicator {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Trend Badges */
+.trend-badge {
+    font-size: 0.65rem;
+    padding: 2px 6px;
+    border-radius: 999px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    letter-spacing: 0.02em;
+}
+.trend-good { background-color: #dcfce7; color: #15803d; }
+.trend-bad { background-color: #fee2e2; color: #b91c1c; }
+
+/* Animação */
+.fade-in { animation: fadeIn 0.6s ease-out forwards; }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media print {
+    body { background: white; }
+    .header-premium { background: #001970 !important; -webkit-print-color-adjust: exact; }
+    .metric-card, .chart-card { break-inside: avoid; border: 1px solid #ccc; box-shadow: none; }
+    button { display: none; }
+}
