@@ -1,4 +1,4 @@
-// --- DADOS DO RELATÓRIO ---
+// --- DADOS DO RELATÓRIO (EDITE AQUI) ---
 const reportData = {
     interno: {
         leads: 1450,
@@ -24,7 +24,45 @@ const reportData = {
 document.getElementById('data-atualizacao').innerText = new Date().toLocaleDateString('pt-BR');
 const formatCurrency = (val) => val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-// Animação de Números
+// --- LÓGICA DAS ABAS E CÁLCULOS HERO ---
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Cálculos dos Totais das Abas Hero
+    
+    // Aba Leads Hoje (Soma)
+    const totalLeadsHoje = reportData.interno.leadsHoje + reportData.externo.leadsHoje;
+    document.getElementById('tab-total-leads').innerText = totalLeadsHoje;
+    document.getElementById('tab-leads-interno').innerText = reportData.interno.leadsHoje;
+    document.getElementById('tab-leads-externo').innerText = reportData.externo.leadsHoje;
+
+    // Aba CPL (Média)
+    const mediaCplTotal = (reportData.interno.cpl30 + reportData.externo.cpl30) / 2;
+    document.getElementById('tab-total-cpl').innerText = formatCurrency(mediaCplTotal);
+    document.getElementById('tab-cpl-interno').innerText = formatCurrency(reportData.interno.cpl30);
+    document.getElementById('tab-cpl-externo').innerText = formatCurrency(reportData.externo.cpl30);
+
+    // Aba Média 7 Dias (Soma)
+    const totalMedia7d = reportData.interno.mediaLeads7 + reportData.externo.mediaLeads7;
+    document.getElementById('tab-total-media').innerText = Math.round(totalMedia7d); 
+    document.getElementById('tab-media-interno').innerText = reportData.interno.mediaLeads7;
+    document.getElementById('tab-media-externo').innerText = reportData.externo.mediaLeads7;
+
+    // 2. Comportamento de Clique nas Abas
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.tab-panel');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            panels.forEach(p => p.classList.add('hidden'));
+
+            tab.classList.add('active');
+            const targetId = tab.getAttribute('data-target');
+            document.getElementById(targetId).classList.remove('hidden');
+        });
+    });
+});
+
+// --- ANIMAÇÃO DE NÚMEROS (GRID INFERIOR) ---
 function animateValue(obj, start, end, duration, isCurrency) {
     let startTimestamp = null;
     const step = (timestamp) => {
@@ -47,7 +85,7 @@ function animateValue(obj, start, end, duration, isCurrency) {
     window.requestAnimationFrame(step);
 }
 
-// Configuração dos Cards
+// Configuração dos Cards (Grid Detalhado)
 const cardConfig = {
     leads: { label: "Total Leads", help: "Volume acumulado", icon: "fa-users", type: "number", bg: "bg-blue-50", text: "text-blue-600" },
     cpl30: { label: "CPL (30 dias)", help: "Custo médio mensal", icon: "fa-sack-dollar", type: "money", bg: "bg-emerald-50", text: "text-emerald-600" },
@@ -58,7 +96,7 @@ const cardConfig = {
     leadsHoje: { label: "Leads Hoje", help: "Captação do dia", icon: "fa-calendar-day", type: "number", bg: "bg-rose-50", text: "text-rose-600" }
 };
 
-// Renderização dos Cards
+// Renderização dos Cards Detalhados
 function renderCards(dataObj, containerId, accentColor) {
     const container = document.getElementById(containerId);
     
@@ -102,10 +140,10 @@ function renderCards(dataObj, containerId, accentColor) {
     });
 }
 
-renderCards(reportData.interno, 'grid-interno', '#2563eb'); // Azul
-renderCards(reportData.externo, 'grid-externo', '#06b6d4'); // Ciano
+renderCards(reportData.interno, 'grid-interno', '#2563eb'); 
+renderCards(reportData.externo, 'grid-externo', '#06b6d4'); 
 
-// Inicializa tooltips (Tippy.js)
+// Inicializa tooltips
 if(window.tippy) {
     tippy('[data-tippy-content]', { animation: 'scale', theme: 'light-border' });
 }
@@ -113,7 +151,7 @@ if(window.tippy) {
 // --- GRÁFICOS PREMIUM ---
 Chart.defaults.font.family = "'Inter', sans-serif";
 Chart.defaults.color = '#64748b';
-Chart.defaults.scale.grid.color = 'transparent'; // Remove grades para visual clean
+Chart.defaults.scale.grid.color = 'transparent';
 
 const ctxLeads = document.getElementById('chartLeads').getContext('2d');
 const gradientBlue = ctxLeads.createLinearGradient(0, 0, 0, 300);
