@@ -22,7 +22,48 @@ body {
     border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
-/* --- BOTÕES --- */
+/* --- SISTEMA DE ABAS (Tabs) --- */
+.tab-btn {
+    padding: 0.6rem 1.25rem;
+    border-radius: 99px; /* Pill shape total */
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    border: 1px solid transparent;
+}
+
+.tab-btn:hover {
+    background-color: #f1f5f9;
+    color: #1e293b;
+    transform: translateY(-1px);
+}
+
+/* Estado Ativo Sofisticado */
+.tab-btn.active {
+    background-color: white;
+    color: #0f172a;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    border-color: #e2e8f0;
+}
+
+/* Painel com animação suave */
+.tab-panel {
+    animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tab-panel.hidden {
+    display: none;
+}
+
+@keyframes slideUpFade {
+    from { opacity: 0; transform: translateY(10px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* --- BOTÕES GERAIS --- */
 .btn-primary {
     background-color: white;
     color: #334155;
@@ -50,13 +91,13 @@ body {
     transform: translateY(0);
 }
 
-/* --- CARDS DE MÉTRICAS (Estilo Clean) --- */
+/* --- CARDS DE MÉTRICAS (GRID INFERIOR) --- */
 .metric-card {
     background: white;
     border-radius: 0.75rem; /* 12px */
     padding: 1.25rem;
     position: relative;
-    border: 1px solid #e2e8f0; /* Borda sutil */
+    border: 1px solid #e2e8f0; 
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.02), 0 1px 2px -1px rgba(0, 0, 0, 0.02);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
@@ -71,7 +112,7 @@ body {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
 }
 
-/* Acentuação Lateral (Elegante) */
+/* Acentuação Lateral */
 .metric-card::before {
     content: '';
     position: absolute;
@@ -102,7 +143,7 @@ body {
 
 /* Valores */
 .metric-value {
-    font-feature-settings: "tnum"; /* Números tabulares para melhor alinhamento */
+    font-feature-settings: "tnum"; 
     font-variant-numeric: tabular-nums;
 }
 
@@ -168,5 +209,5 @@ body {
     body { background: white; }
     .header-premium { background: #001970 !important; -webkit-print-color-adjust: exact; }
     .metric-card, .chart-card { break-inside: avoid; border: 1px solid #ccc; box-shadow: none; }
-    button { display: none; }
+    button, .tab-btn { display: none !important; }
 }
