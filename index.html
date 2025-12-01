@@ -52,14 +52,155 @@
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 fade-in">
 
-        <div class="flex flex-col sm:flex-row justify-between items-end sm:items-center mb-10 gap-4">
+        <section class="mb-12">
+            
+            <div class="flex justify-center mb-10">
+                <div class="bg-white/80 backdrop-blur-md p-1.5 rounded-2xl shadow-sm border border-slate-200/60 inline-flex gap-2">
+                    <button class="tab-btn active" data-target="tab-leads">
+                        <span class="w-2 h-2 rounded-full bg-blue-500 mr-2"></span> Leads Hoje
+                    </button>
+                    <button class="tab-btn" data-target="tab-cpl">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 mr-2"></span> CPL Geral
+                    </button>
+                    <button class="tab-btn" data-target="tab-media">
+                        <span class="w-2 h-2 rounded-full bg-purple-500 mr-2"></span> Média 7 Dias
+                    </button>
+                </div>
+            </div>
+
+            <div class="relative min-h-[200px]">
+                
+                <div id="tab-leads" class="tab-panel active">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                        <div class="md:col-span-6 lg:col-span-5 relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white shadow-xl shadow-blue-200 p-8 flex flex-col justify-center group hover:scale-[1.005] transition-transform duration-300">
+                            <i class="fa-solid fa-bolt absolute -right-6 -bottom-6 text-9xl text-white/10 group-hover:rotate-12 transition-transform duration-500"></i>
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-3xl -mr-10 -mt-10"></div>
+                            
+                            <h3 class="text-blue-100 font-medium text-sm uppercase tracking-widest mb-1">Total Leads Hoje</h3>
+                            <div class="flex items-baseline gap-2">
+                                <span id="tab-total-leads" class="text-6xl font-bold tracking-tighter">0</span>
+                                <span class="text-blue-200 text-sm font-medium">novos leads</span>
+                            </div>
+                            <div class="mt-6 pt-4 border-t border-white/20 flex items-center gap-2">
+                                <span class="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-semibold">
+                                    <i class="fa-regular fa-clock mr-1"></i> Tempo Real
+                                </span>
+                            </div>
+                        </div>
+                        <div class="md:col-span-6 lg:col-span-7 flex flex-col justify-between gap-4">
+                            <div class="flex-1 bg-white rounded-2xl border border-slate-100 p-6 flex items-center justify-between shadow-sm hover:shadow-md transition-all group relative overflow-hidden">
+                                <div class="absolute right-0 top-0 w-16 h-full bg-gradient-to-l from-blue-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                <div>
+                                    <span class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Interno</span>
+                                    <span id="tab-leads-interno" class="text-3xl font-bold text-slate-700">0</span>
+                                </div>
+                                <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-building-user"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1 bg-white rounded-2xl border border-slate-100 p-6 flex items-center justify-between shadow-sm hover:shadow-md transition-all group relative overflow-hidden">
+                                <div class="absolute right-0 top-0 w-16 h-full bg-gradient-to-l from-cyan-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                <div>
+                                    <span class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Externo</span>
+                                    <span id="tab-leads-externo" class="text-3xl font-bold text-slate-700">0</span>
+                                </div>
+                                <div class="w-12 h-12 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-globe"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-cpl" class="tab-panel hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                        <div class="md:col-span-6 lg:col-span-5 relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white shadow-xl shadow-emerald-200 p-8 flex flex-col justify-center group hover:scale-[1.005] transition-transform duration-300">
+                            <i class="fa-solid fa-sack-dollar absolute -right-4 -bottom-4 text-9xl text-white/10 group-hover:rotate-12 transition-transform duration-500"></i>
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-3xl -mr-10 -mt-10"></div>
+                            
+                            <h3 class="text-emerald-100 font-medium text-sm uppercase tracking-widest mb-1">CPL Geral (Média)</h3>
+                            <div class="flex items-baseline gap-2">
+                                <span id="tab-total-cpl" class="text-5xl font-bold tracking-tighter">R$ 0,00</span>
+                            </div>
+                             <div class="mt-6 pt-4 border-t border-white/20 flex items-center gap-2">
+                                <span class="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-semibold">
+                                    <i class="fa-solid fa-calculator mr-1"></i> Média Consolidada
+                                </span>
+                            </div>
+                        </div>
+                        <div class="md:col-span-6 lg:col-span-7 flex flex-col justify-between gap-4">
+                            <div class="flex-1 bg-white rounded-2xl border border-slate-100 p-6 flex items-center justify-between shadow-sm hover:shadow-md transition-all group">
+                                <div>
+                                    <span class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">CPL Interno</span>
+                                    <span id="tab-cpl-interno" class="text-3xl font-bold text-slate-700">R$ 0,00</span>
+                                </div>
+                                <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-tag"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1 bg-white rounded-2xl border border-slate-100 p-6 flex items-center justify-between shadow-sm hover:shadow-md transition-all group">
+                                <div>
+                                    <span class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">CPL Externo</span>
+                                    <span id="tab-cpl-externo" class="text-3xl font-bold text-slate-700">R$ 0,00</span>
+                                </div>
+                                <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-tag"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-media" class="tab-panel hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                        <div class="md:col-span-6 lg:col-span-5 relative overflow-hidden rounded-3xl bg-gradient-to-br from-violet-600 to-purple-700 text-white shadow-xl shadow-purple-200 p-8 flex flex-col justify-center group hover:scale-[1.005] transition-transform duration-300">
+                            <i class="fa-solid fa-chart-line absolute -right-6 -bottom-6 text-9xl text-white/10 group-hover:scale-110 transition-transform duration-500"></i>
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-3xl -mr-10 -mt-10"></div>
+                            
+                            <h3 class="text-purple-100 font-medium text-sm uppercase tracking-widest mb-1">Média Diária (7 Dias)</h3>
+                            <div class="flex items-baseline gap-2">
+                                <span id="tab-total-media" class="text-6xl font-bold tracking-tighter">0</span>
+                                <span class="text-purple-200 text-sm font-medium">/ dia</span>
+                            </div>
+                             <div class="mt-6 pt-4 border-t border-white/20 flex items-center gap-2">
+                                <span class="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-semibold">
+                                    <i class="fa-solid fa-calendar-week mr-1"></i> Última Semana
+                                </span>
+                            </div>
+                        </div>
+                        <div class="md:col-span-6 lg:col-span-7 flex flex-col justify-between gap-4">
+                            <div class="flex-1 bg-white rounded-2xl border border-slate-100 p-6 flex items-center justify-between shadow-sm hover:shadow-md transition-all group">
+                                <div>
+                                    <span class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Média Interna</span>
+                                    <span id="tab-media-interno" class="text-3xl font-bold text-slate-700">0</span>
+                                </div>
+                                <div class="w-12 h-12 rounded-xl bg-violet-50 text-violet-600 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-chart-column"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1 bg-white rounded-2xl border border-slate-100 p-6 flex items-center justify-between shadow-sm hover:shadow-md transition-all group">
+                                <div>
+                                    <span class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Média Externa</span>
+                                    <span id="tab-media-externo" class="text-3xl font-bold text-slate-700">0</span>
+                                </div>
+                                <div class="w-12 h-12 rounded-xl bg-violet-50 text-violet-600 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-chart-column"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <div class="flex flex-col sm:flex-row justify-between items-end sm:items-center mb-10 gap-4 mt-16 border-t border-slate-200 pt-10">
             <div>
-                <h2 class="text-2xl font-bold text-slate-800 tracking-tight">Visão Geral</h2>
-                <p class="text-slate-500 text-sm mt-1">Acompanhe os principais indicadores de performance (KPIs).</p>
+                <h2 class="text-2xl font-bold text-slate-800 tracking-tight">Detalhamento de KPIs</h2>
+                <p class="text-slate-500 text-sm mt-1">Visão completa de todos os indicadores.</p>
             </div>
             <button onclick="window.print()" class="btn-primary">
-                <i class="fa-solid fa-download"></i> 
-                Exportar PDF
+                <i class="fa-solid fa-download"></i> Exportar PDF
             </button>
         </div>
 
