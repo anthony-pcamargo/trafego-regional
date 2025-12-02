@@ -69,7 +69,7 @@
                             <div class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center shadow-sm ring-1 ring-blue-100">
                                 <i class="fa-solid fa-bolt text-sm"></i>
                             </div>
-                            <span class="text-xs font-bold uppercase tracking-widest text-slate-500 group-hover:text-blue-600 transition-colors">Leads Hoje</span>
+                            <span class="text-xs font-bold uppercase tracking-widest text-slate-500 group-hover:text-blue-600 transition-colors">Leads totais</span>
                         </div>
                         <div>
                             <div class="flex items-baseline gap-2">
@@ -90,7 +90,7 @@
                             <div class="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center shadow-sm ring-1 ring-emerald-100">
                                 <i class="fa-solid fa-sack-dollar text-sm"></i>
                             </div>
-                            <span class="text-xs font-bold uppercase tracking-widest text-slate-500 group-hover:text-emerald-600 transition-colors">CPL Geral</span>
+                            <span class="text-xs font-bold uppercase tracking-widest text-slate-500 group-hover:text-emerald-600 transition-colors">CPL (Últimos 30 Dias)</span>
                         </div>
                         <div>
                             <div class="flex items-baseline gap-2">
@@ -126,162 +126,6 @@
             </div>
         </section>
 
-        <section class="animate-enter relative" style="--stagger: 2">
-            
-            <div id="tab-leads" class="tab-panel active">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-                    
-                    <div class="lg:col-span-5 relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#1e40af] to-[#172554] text-white shadow-2xl shadow-blue-900/20 p-8 md:p-10 flex flex-col justify-between group">
-                        <div class="absolute -right-20 -top-20 w-80 h-80 bg-blue-500 rounded-full mix-blend-overlay filter blur-[80px] opacity-40 animate-pulse-slow"></div>
-                        <div class="absolute -left-20 -bottom-20 w-80 h-80 bg-indigo-500 rounded-full mix-blend-overlay filter blur-[80px] opacity-40 animate-pulse-slow" style="animation-delay: 2s"></div>
-                        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20"></div>
-
-                        <div class="relative z-10">
-                            <div class="flex justify-between items-start">
-                                <div class="bg-white/10 backdrop-blur-md border border-white/10 px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-widest shadow-lg">Tempo Real</div>
-                                <i class="fa-solid fa-bolt text-blue-300/30 text-4xl"></i>
-                            </div>
-                            
-                            <div class="mt-8">
-                                <h3 class="text-blue-100 font-medium text-sm tracking-wide mb-1 opacity-80">Captação Total</h3>
-                                <div class="flex items-end gap-3">
-                                    <span id="tab-total-leads" class="text-6xl md:text-7xl font-bold tracking-tighter leading-none font-display">0</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="lg:col-span-7 flex flex-col gap-4">
-                        <div class="flex-1 bg-white rounded-3xl border border-slate-100 p-6 md:p-8 flex items-center justify-between shadow-sm hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300 group relative overflow-hidden">
-                            <div class="absolute left-0 top-0 w-1 h-full bg-blue-500 transform origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-300"></div>
-                            <div class="relative z-10">
-                                <span class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Interno
-                                </span>
-                                <span id="tab-leads-interno" class="text-4xl font-bold text-slate-800 font-display">0</span>
-                            </div>
-                            <div class="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
-                                <i class="fa-solid fa-building-user"></i>
-                            </div>
-                        </div>
-                        
-                        <div class="flex-1 bg-white rounded-3xl border border-slate-100 p-6 md:p-8 flex items-center justify-between shadow-sm hover:shadow-xl hover:shadow-cyan-500/5 transition-all duration-300 group relative overflow-hidden">
-                            <div class="absolute left-0 top-0 w-1 h-full bg-cyan-500 transform origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-300"></div>
-                            <div class="relative z-10">
-                                <span class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-cyan-500"></span> Externo
-                                </span>
-                                <span id="tab-leads-externo" class="text-4xl font-bold text-slate-800 font-display">0</span>
-                            </div>
-                            <div class="w-14 h-14 rounded-2xl bg-cyan-50 text-cyan-600 flex items-center justify-center text-xl group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
-                                <i class="fa-solid fa-globe"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="tab-cpl" class="tab-panel hidden">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-                    <div class="lg:col-span-5 relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#064e3b] to-[#065f46] text-white shadow-2xl shadow-emerald-900/20 p-8 md:p-10 flex flex-col justify-between group">
-                        <div class="absolute -right-20 -top-20 w-80 h-80 bg-emerald-500 rounded-full mix-blend-overlay filter blur-[80px] opacity-40 animate-pulse-slow"></div>
-                        <div class="absolute -left-20 -bottom-20 w-80 h-80 bg-teal-500 rounded-full mix-blend-overlay filter blur-[80px] opacity-40 animate-pulse-slow" style="animation-delay: 2s"></div>
-                        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20"></div>
-
-                        <div class="relative z-10">
-                            <div class="flex justify-between items-start">
-                                <div class="bg-white/10 backdrop-blur-md border border-white/10 px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-widest shadow-lg">Média Geral</div>
-                                <i class="fa-solid fa-sack-dollar text-emerald-300/30 text-4xl"></i>
-                            </div>
-                            <div class="mt-8">
-                                <h3 class="text-emerald-100 font-medium text-sm tracking-wide mb-1 opacity-80">Custo por Lead</h3>
-                                <div class="flex items-end gap-3">
-                                    <span id="tab-total-cpl" class="text-5xl md:text-6xl font-bold tracking-tighter leading-none font-display">R$ 0,00</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="lg:col-span-7 flex flex-col gap-4">
-                        <div class="flex-1 bg-white rounded-3xl border border-slate-100 p-6 md:p-8 flex items-center justify-between shadow-sm hover:shadow-xl hover:shadow-emerald-500/5 transition-all duration-300 group relative overflow-hidden">
-                            <div class="absolute left-0 top-0 w-1 h-full bg-emerald-500 transform origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-300"></div>
-                            <div class="relative z-10">
-                                <span class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Interno
-                                </span>
-                                <span id="tab-cpl-interno" class="text-4xl font-bold text-slate-800 font-display">R$ 0,00</span>
-                            </div>
-                            <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
-                                <i class="fa-solid fa-tag"></i>
-                            </div>
-                        </div>
-                        <div class="flex-1 bg-white rounded-3xl border border-slate-100 p-6 md:p-8 flex items-center justify-between shadow-sm hover:shadow-xl hover:shadow-emerald-500/5 transition-all duration-300 group relative overflow-hidden">
-                            <div class="absolute left-0 top-0 w-1 h-full bg-emerald-500 transform origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-300"></div>
-                            <div class="relative z-10">
-                                <span class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Externo
-                                </span>
-                                <span id="tab-cpl-externo" class="text-4xl font-bold text-slate-800 font-display">R$ 0,00</span>
-                            </div>
-                            <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
-                                <i class="fa-solid fa-tag"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="tab-media" class="tab-panel hidden">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-                    <div class="lg:col-span-5 relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#581c87] to-[#4c1d95] text-white shadow-2xl shadow-purple-900/20 p-8 md:p-10 flex flex-col justify-between group">
-                        <div class="absolute -right-20 -top-20 w-80 h-80 bg-purple-500 rounded-full mix-blend-overlay filter blur-[80px] opacity-40 animate-pulse-slow"></div>
-                        <div class="absolute -left-20 -bottom-20 w-80 h-80 bg-fuchsia-500 rounded-full mix-blend-overlay filter blur-[80px] opacity-40 animate-pulse-slow" style="animation-delay: 2s"></div>
-                        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20"></div>
-
-                        <div class="relative z-10">
-                            <div class="flex justify-between items-start">
-                                <div class="bg-white/10 backdrop-blur-md border border-white/10 px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-widest shadow-lg">Últimos 7 Dias</div>
-                                <i class="fa-solid fa-chart-line text-purple-300/30 text-4xl"></i>
-                            </div>
-                            <div class="mt-8">
-                                <h3 class="text-purple-100 font-medium text-sm tracking-wide mb-1 opacity-80">Média Diária</h3>
-                                <div class="flex items-end gap-3">
-                                    <span id="tab-total-media" class="text-6xl md:text-7xl font-bold tracking-tighter leading-none font-display">0</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="lg:col-span-7 flex flex-col gap-4">
-                        <div class="flex-1 bg-white rounded-3xl border border-slate-100 p-6 md:p-8 flex items-center justify-between shadow-sm hover:shadow-xl hover:shadow-purple-500/5 transition-all duration-300 group relative overflow-hidden">
-                            <div class="absolute left-0 top-0 w-1 h-full bg-purple-500 transform origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-300"></div>
-                            <div class="relative z-10">
-                                <span class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span> Interno
-                                </span>
-                                <span id="tab-media-interno" class="text-4xl font-bold text-slate-800 font-display">0</span>
-                            </div>
-                            <div class="w-14 h-14 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
-                                <i class="fa-solid fa-chart-column"></i>
-                            </div>
-                        </div>
-                        <div class="flex-1 bg-white rounded-3xl border border-slate-100 p-6 md:p-8 flex items-center justify-between shadow-sm hover:shadow-xl hover:shadow-purple-500/5 transition-all duration-300 group relative overflow-hidden">
-                            <div class="absolute left-0 top-0 w-1 h-full bg-purple-500 transform origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-300"></div>
-                            <div class="relative z-10">
-                                <span class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span> Externo
-                                </span>
-                                <span id="tab-media-externo" class="text-4xl font-bold text-slate-800 font-display">0</span>
-                            </div>
-                            <div class="w-14 h-14 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
-                                <i class="fa-solid fa-chart-column"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </section>
 
         <div class="pt-8 pb-4 animate-enter" style="--stagger: 3">
             <h2 class="text-xl font-bold text-slate-800 font-display">KPIs Detalhados</h2>

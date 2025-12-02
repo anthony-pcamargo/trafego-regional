@@ -1,29 +1,70 @@
-// --- DADOS (EDITÁVEIS) ---
-const reportData = {
-    interno: {
-        leads: 1450,
-        cpl30: 12.50,
-        saldo: 5000.00,
-        mediaLeads7: 48,
-        mediaCpl7: 11.80,
-        cplIdeal: 12.00,
-        leadsHoje: 24
-    },
-    externo: {
-        leads: 3200,
-        cpl30: 18.20,
-        saldo: 12000.00,
-        mediaLeads7: 105,
-        mediaCpl7: 19.50,
-        cplIdeal: 18.00,
-        leadsHoje: 62
-    }
-};
+// CONFIGURAÇÃO DO WEBHOOK
+const N8N_WEBHOOK_URL = 'https://primary-production-f8d8.up.railway.app/webhook-test/get_data_automacao_campanhas_hbs';
 
-// Utils
+// Utils Globais
 document.getElementById('data-atualizacao').innerText = new Date().toLocaleDateString('pt-BR');
 const formatCurrency = (val) => val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 const formatNumber = (val) => val >= 1000 ? (val / 1000).toFixed(1).replace('.', ',') + "k" : val;
+
+// --- INICIALIZAÇÃO ---
+document.addEventListener('DOMContentLoaded', () => {
+    fetchDashboardData();
+});
+
+async function fetchDashboardData() {
+    try {
+        // 1. Busca os dados (Simulação com seu JSON para teste)
+        // Quando conectar o n8n, descomente a linha do fetch e remova a variável mockData
+        
+        // const response = await fetch(N8N_WEBHOOK_URL);
+        // const n8nData = await response.json();
+
+        // SIMULANDO O RETORNO DO N8N QUE VOCÊ MANDOU:
+        const n8nData = [
+          { "Tipo de Campanha": "Interna", "Leads": 214, "CPL (30 dias)": 37.38, "Saldo": 1857.75 },
+          { "Tipo de Campanha": "Externa", "Leads": 2816, "CPL (30 dias)": 24.29, "Saldo": 3093.58 },
+          { "Tipo de Campanha": "Total", "Leads": 3030, "CPL (30 dias)": 30.835, "Saldo": 4951.33 },
+          { "Tipo de Campanha": "Atualizar Dados" }
+        ];
+
+        // 2. Filtra apenas a linha "Total"
+        const rowTotal = n8nData.find(item => item["Tipo de Campanha"] === "Total") || {};
+
+        // 3. Extrai os valores (tratando caso venha vazio)
+        const leadsTotal = rowTotal["Leads"] || 0;
+        const cplTotal = rowTotal["CPL (30 dias)"] || 0;
+        const saldoTotal = rowTotal["Saldo"] || 0;
+
+        // 4. Preenche os 3 Cards do Topo
+        
+        // Card 1: Leads (Esquerda)
+        animateValue(document.getElementById('nav-leads-val'), 0, leadsTotal, 1000, false);
+
+        // Card 2: CPL (Meio)
+        animateValue(document.getElementById('nav-cpl-val'), 0, cplTotal, 1000, true);
+
+        // Card 3: Saldo (Direita) - Antes era "Média"
+        // Vamos ajustar também o rótulo para fazer sentido
+        const elSaldoVal = document.getElementById('nav-media-val');
+        
+        // Troca o título do card de "Média 7 Dias" para "Saldo Total" via JS
+        // (Isso procura o elemento pai e troca o texto do título)
+        const cardSaldoTitle = elSaldoVal.closest('.nav-card').querySelector('.text-xs.font-bold');
+        if(cardSaldoTitle) cardSaldoTitle.innerText = "SALDO DISPONÍVEL";
+        
+        // Troca o texto pequeno de "/ dia" para "Total"
+        const cardSaldoSub = elSaldoVal.nextElementSibling;
+        if(cardSaldoSub) cardSaldoSub.innerText = "Total";
+
+        // Anima o valor formatado como moeda (true)
+        animateValue(elSaldoVal, 0, saldoTotal, 1000, true);
+
+    } catch (error) {
+        console.error("Erro ao processar dados:", error);
+    }
+}
+
+// ... (Mantenha daqui para baixo suas funções animateValue, renderCards, etc) ...
 
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -37,33 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
     animateValue(document.getElementById('nav-cpl-val'), 0, mediaCplTotal, 1000, true);
     animateValue(document.getElementById('nav-media-val'), 0, totalMedia7d, 1000, false);
 
-    // 3. ABAS HERO
-    // Leads
-    document.getElementById('tab-total-leads').innerText = totalLeadsHoje;
-    document.getElementById('tab-leads-interno').innerText = reportData.interno.leadsHoje;
-    document.getElementById('tab-leads-externo').innerText = reportData.externo.leadsHoje;
-    // CPL
-    document.getElementById('tab-total-cpl').innerText = formatCurrency(mediaCplTotal);
-    document.getElementById('tab-cpl-interno').innerText = formatCurrency(reportData.interno.cpl30);
-    document.getElementById('tab-cpl-externo').innerText = formatCurrency(reportData.externo.cpl30);
-    // Media
-    document.getElementById('tab-total-media').innerText = Math.round(totalMedia7d); 
-    document.getElementById('tab-media-interno').innerText = reportData.interno.mediaLeads7;
-    document.getElementById('tab-media-externo').innerText = reportData.externo.mediaLeads7;
-
-    // 4. TAB SWITCHER
-    const navCards = document.querySelectorAll('.nav-card');
-    const panels = document.querySelectorAll('.tab-panel');
-
-    navCards.forEach(card => {
-        card.addEventListener('click', () => {
-            navCards.forEach(c => c.classList.remove('active'));
-            panels.forEach(p => p.classList.add('hidden'));
-            card.classList.add('active');
-            const targetId = card.getAttribute('data-target');
-            document.getElementById(targetId).classList.remove('hidden');
-        });
-    });
 
     // 5. RENDER DETAILED CARDS
     renderCards(reportData.interno, 'grid-interno', 'text-blue-600', 'bg-blue-50');
