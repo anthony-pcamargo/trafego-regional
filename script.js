@@ -13,16 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
 async function fetchDashboardData() {
     try {
         // --- MODO DE TESTE (Descomente o fetch abaixo quando conectar o n8n) ---
-        // const response = await fetch(N8N_WEBHOOK_URL);
-        // const n8nData = await response.json();
+        const response = await fetch(N8N_WEBHOOK_URL);
+        const n8nData = await response.json();
 
         // SEU JSON DE EXEMPLO (Para garantir que funcione agora):
-        const n8nData = [
-          { "Tipo de Campanha": "Interna", "Leads": 214, "CPL (30 dias)": 37.38, "Saldo": 1857.75, "Média leads 7 dias": "5.86", "Média CPL 7 dias": 48.78, "CPL Ideal": "", "Leads Hoje": 4 },
-          { "Tipo de Campanha": "Externa", "Leads": 2816, "CPL (30 dias)": 24.29, "Saldo": 3093.58, "Média leads 7 dias": "79.86", "Média CPL 7 dias": 26.61, "CPL Ideal": "", "Leads Hoje": 110 },
-          { "Tipo de Campanha": "Total", "Leads": 3030, "CPL (30 dias)": 30.835, "Saldo": 4951.33 },
-          { "Tipo de Campanha": "Atualizar Dados" }
-        ];
+        //const n8nData = [
+          //{ "Tipo de Campanha": "Interna", "Leads": 214, "CPL (30 dias)": 37.38, "Saldo": 1857.75, "Média leads 7 dias": "5.86", "Média CPL 7 dias": 48.78, "CPL Ideal": "", "Leads Hoje": 4 },
+          //{ "Tipo de Campanha": "Externa", "Leads": 2816, "CPL (30 dias)": 24.29, "Saldo": 3093.58, "Média leads 7 dias": "79.86", "Média CPL 7 dias": 26.61, "CPL Ideal": "", "Leads Hoje": 110 },
+          //{ "Tipo de Campanha": "Total", "Leads": 3030, "CPL (30 dias)": 30.835, "Saldo": 4951.33 },
+          //{ "Tipo de Campanha": "Atualizar Dados" }
+        //];
 
         // 1. Separa as linhas baseado na chave "Tipo de Campanha"
         const rowInterna = n8nData.find(item => item["Tipo de Campanha"] === "Interna") || {};
@@ -170,4 +170,5 @@ function animateValue(obj, start, end, duration, isCurrency) {
         if (progress < 1) window.requestAnimationFrame(step);
     };
     window.requestAnimationFrame(step);
+
 }
