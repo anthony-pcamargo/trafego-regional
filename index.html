@@ -29,27 +29,13 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             
             <div class="flex-shrink-0 flex items-center gap-4">
-                <img src="https://placehold.co/150x50/001970/ffffff?text=LOGO" 
+                <img src="img/logo hbs.png" 
                      alt="Logo" class="h-9 w-auto object-contain hover:opacity-90 transition-opacity">
             </div>
 
             <div class="flex items-center gap-6">
                 <div class="hidden md:block text-right">
-                    <h1 class="text-sm font-semibold text-white/90 tracking-wide leading-none">Tráfego das Regionais</h1>
-                    <p class="text-[10px] uppercase tracking-[0.15em] text-blue-200 mt-1.5 opacity-70 font-semibold">Dashboard Executivo</p>
-                </div>
-
-                <div class="h-8 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent hidden md:block"></div>
-
-                <div class="flex items-center gap-3 bg-white/5 hover:bg-white/10 transition-all px-4 py-2 rounded-full border border-white/10 shadow-inner">
-                    <div class="relative flex h-2.5 w-2.5">
-                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                      <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500 border border-[#001970]"></span>
-                    </div>
-                    <div class="text-right leading-tight">
-                        <span class="block text-[9px] text-blue-200 font-bold uppercase tracking-wider">Atualizado</span>
-                        <span class="font-mono text-xs font-semibold text-white tracking-wide" id="data-atualizacao">--/--/--</span>
-                    </div>
+                    <h1 class="text-base font-semibold text-white/90 tracking-wide leading-none">Tráfego das Regionais</h1>
                 </div>
             </div>
         </div>
@@ -126,12 +112,6 @@
             </div>
         </section>
 
-
-        <div class="pt-8 pb-4 animate-enter" style="--stagger: 3">
-            <h2 class="text-xl font-bold text-slate-800 font-display">KPIs Detalhados</h2>
-            <p class="text-sm text-slate-400">Análise granular por canal de aquisição</p>
-        </div>
-
         <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 animate-enter" style="--stagger: 4">
             
             <div class="glass-container p-6 rounded-[2rem] border border-white/60 shadow-xl shadow-slate-200/50">
@@ -156,43 +136,15 @@
 
         </section>
 
-        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-4 animate-enter" style="--stagger: 5">
-            
-            <div class="chart-container glass-container p-8 rounded-[2rem] border border-white/60 shadow-xl shadow-slate-200/40 relative overflow-hidden group">
-                <div class="flex justify-between items-start mb-8 relative z-10">
-                    <div>
-                        <h4 class="text-lg font-bold text-slate-800 font-display">Volume de Leads</h4>
-                        <p class="text-xs font-medium text-slate-400 uppercase tracking-wider mt-1">Comparativo</p>
-                    </div>
-                </div>
-                <div class="h-72 w-full relative z-10">
-                    <canvas id="chartLeads"></canvas>
-                </div>
-            </div>
-
-            <div class="chart-container glass-container p-8 rounded-[2rem] border border-white/60 shadow-xl shadow-slate-200/40 relative overflow-hidden group">
-                <div class="flex justify-between items-start mb-8 relative z-10">
-                    <div>
-                        <h4 class="text-lg font-bold text-slate-800 font-display">Custo por Lead (CPL)</h4>
-                        <p class="text-xs font-medium text-slate-400 uppercase tracking-wider mt-1">Eficiência</p>
-                    </div>
-                </div>
-                <div class="h-72 w-full relative z-10">
-                    <canvas id="chartCPL"></canvas>
-                </div>
-            </div>
-
-        </section>
 
     </main>
 
     <footer class="border-t border-slate-200 bg-white/50 backdrop-blur-sm mt-12">
         <div class="max-w-7xl mx-auto py-8 px-4 text-center">
-            <p class="text-xs font-semibold text-slate-400 uppercase tracking-[0.2em]">&copy; 2025 Intelligence Dashboard</p>
+            <p class="text-xs font-semibold text-slate-400 uppercase tracking-[0.2em]">&copy; 2025 HBS Intelligence</p>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
